@@ -1,5 +1,5 @@
 {
-    "ls":true,
-    "mv":true,
-    "cp":false
+ "mv": true, 
+ "cp": true, 
+ "ls": true
 }
