@@ -12,7 +12,7 @@ def fit_string_to_screen(display_string, pos_x, max_x):
 
 def random_position(max_x, max_y):
     pos_x = random.randint(1, max_x - 1)
-    pos_y = random.randint(1, max_y - 1)
+    pos_y = random.randint(1, max_y - 2)
 
     return (pos_x, pos_y)
 
@@ -65,19 +65,22 @@ def main():
     continue_looping = True
 
     while continue_looping:
-        for i in range(1,random.randint(15,20)):
-            display_string = command_list.pick_command()
-            command_position = animate_selection(my_screen, display_string)
-            sleep(i * 0.05)
+        if command_list.pick_command():
+            for i in range(1,random.randint(15,20)):
+                display_string = command_list.pick_command()
+                command_position = animate_selection(my_screen, display_string)
+                sleep(i * 0.05)
 
-        move_command_to_center(my_screen, display_string, command_position)
+            move_command_to_center(my_screen, display_string, command_position)
 
-        for i in range(0,3):
-            curses.flash()
-            sleep(0.2)
+            for i in range(0,3):
+                curses.flash()
+                sleep(0.2)
 
-        command_list.mark_inactive(display_string)
-        command_list.write_commands()
+            command_list.mark_inactive(display_string)
+            command_list.write_commands()
+        else:
+            continue_looping = False
 
         char = my_screen.getkey()
         if char in 'q':

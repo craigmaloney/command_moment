@@ -18,7 +18,10 @@ class CommandList:
     def pick_command(self):
         active = self.active_commands()
         random.shuffle(active)
-        return active.pop()
+        if active:
+            return active.pop()
+        else:
+            return None
 
     def mark_inactive(self, command):
         self.commands[command] = False
