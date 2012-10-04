@@ -1,6 +1,7 @@
 import curses
 from time import sleep
 import random
+import pygame
 from command_list import CommandList
 
 def fit_string_to_screen(display_string, pos_x, max_x):
@@ -56,6 +57,7 @@ def move_command_to_center(my_screen, display_string, command_position):
 
 
 def main():
+    pygame.mixer.init(frequency=44100, size=-16, channels=2, buffer=4096)
     command_list = CommandList()
     command_list.load_commands()
 
@@ -69,6 +71,7 @@ def main():
             for i in range(1,random.randint(15,20)):
                 display_string = command_list.pick_command()
                 command_position = animate_selection(my_screen, display_string)
+                pygame.mixer.Sound('beep.wav').play()
                 sleep(i * 0.05)
 
             move_command_to_center(my_screen, display_string, command_position)

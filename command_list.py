@@ -27,6 +27,5 @@ class CommandList:
         self.commands[command] = False
 
     def write_commands(self):
-       file = open(self.filename, 'wt')
-       json.dump(self.commands, file, indent=True)
-       file.close()
+        with open(self.filename, 'wt') as file:
+            json.dump(self.commands, file, indent=True)
