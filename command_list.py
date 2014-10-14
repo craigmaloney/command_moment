@@ -7,9 +7,8 @@ class CommandList:
         self.filename = './commands.json'
 
     def load_commands(self):
-        file = open(self.filename, 'rt')
-        self.commands = json.load(file)
-        file.close()
+        with open(self.filename, 'rt') as json_file:
+            self.commands = json.load(json_file)
 
     def active_commands(self):
         all_true = [key for key, val in self.commands.iteritems() if val]
@@ -17,7 +16,8 @@ class CommandList:
 
     def pick_command(self):
         active = self.active_commands()
-        random.shuffle(active)
+        for i in range(1, 10):
+            random.shuffle(active)
         if active:
             return active.pop()
         else:
@@ -27,5 +27,5 @@ class CommandList:
         self.commands[command] = False
 
     def write_commands(self):
-        with open(self.filename, 'wt') as file:
-            json.dump(self.commands, file, indent=True)
+        with open(self.filename, 'wt') as json_file:
+            json.dump(self.commands, json_file, indent=True)
